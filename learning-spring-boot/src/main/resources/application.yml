@@ -1,0 +1,13 @@
+# server:
+#   port: 9000
+
+# logging:
+#   level:
+#     com:
+#       greglturnquist: DEBUG
+
+# management:
+#   endpoints:
+#     web:
+#       exposure:
+#         include: info
