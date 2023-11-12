@@ -4,7 +4,7 @@
 
 ### env setup
 
-* VS Code
+* VS Code - make sure use separate workspace for each application
 * Java 11
 * rabbitmq-server-3.12.8.exe
 * otp_win64_26.1.2.exe
@@ -12,6 +12,9 @@
 * https://start.spring.io/
 
 ### Build jar
+
+**Note**: if change of code or configuration does not take effect, clean and rebuild the application
+
 ```bat
 .\gradlew.bat clean build
 dir build\libs
