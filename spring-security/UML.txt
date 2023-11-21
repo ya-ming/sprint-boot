@@ -1,0 +1,258 @@
+@startuml
+annotation java.lang.Override
+annotation javax.persistence.Entity
+annotation javax.persistence.Id
+annotation org.springframework.beans.factory.annotation.Autowired
+annotation org.springframework.boot.autoconfigure.SpringBootApplication
+annotation org.springframework.boot.context.properties.ConfigurationProperties
+annotation org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
+annotation org.springframework.boot.test.context.SpringBootTest
+annotation org.springframework.context.annotation.Bean
+annotation org.springframework.context.annotation.ComponentScan
+annotation org.springframework.context.annotation.Configuration
+annotation org.springframework.context.annotation.PropertySource
+annotation org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
+annotation org.springframework.stereotype.Component
+annotation org.springframework.stereotype.Controller
+annotation org.springframework.stereotype.Repository
+annotation org.springframework.stereotype.Service
+annotation org.springframework.web.bind.annotation.GetMapping
+annotation org.springframework.web.bind.annotation.PostMapping
+class com.fasterxml.jackson.databind.ObjectMapper
+class com.fasterxml.jackson.databind.ObjectWriter
+class io.javabrains.SpringBootSecurity.ConfigService.ConfigurationController
+class io.javabrains.SpringBootSecurity.ConfigService.ConfigurationEntity
+class io.javabrains.SpringBootSecurity.ConfigService.ConfigurationRepository
+class io.javabrains.SpringBootSecurity.ConfigService.JsonFileReaderService
+class io.javabrains.SpringBootSecurity.ConfigService.JsonFileWriterService
+class io.javabrains.SpringBootSecurity.ConfigService.JsonPropertySourceFactory
+class io.javabrains.SpringBootSecurity.HomeResource
+class io.javabrains.SpringBootSecurity.SecurityConfigurationDeprecated
+class io.javabrains.SpringBootSecurity.SecurityConfigurationInMemory
+class io.javabrains.SpringBootSecurity.SecurityConfigurationJDBC
+class io.javabrains.SpringBootSecurity.SecurityConfigurationJPA
+class io.javabrains.SpringBootSecurity.SpringBootSecurityApplication
+class io.javabrains.SpringBootSecurity.SpringBootSecurityApplicationTests
+class io.javabrains.SpringBootSecurity.UserService.CustomLogoutSuccessHandler
+class io.javabrains.SpringBootSecurity.UserService.CustomSessionInformationExpiredStrategy
+class io.javabrains.SpringBootSecurity.UserService.CustomUser
+class io.javabrains.SpringBootSecurity.UserService.CustomUserDetailsService
+class io.javabrains.SpringBootSecurity.UserService.MyAuthenticationSuccessHandler
+class io.javabrains.SpringBootSecurity.UserService.UserRepository
+class io.javabrains.SpringBootSecurity.UserService.UserService
+class java.io.IOException
+class java.nio.file.Files
+class java.nio.file.Path
+class java.nio.file.StandardCopyOption
+class java.util.HashMap
+class java.util.Map
+class java.util.Set
+class javax.servlet.ServletException
+class javax.servlet.http.Cookie
+class javax.servlet.http.HttpServletRequest
+class javax.servlet.http.HttpServletResponse
+class javax.sql.DataSource
+class org.junit.jupiter.api.Test
+class org.springframework.boot.SpringApplication
+class org.springframework.boot.context.properties.ConfigurationPropertiesScan
+class org.springframework.boot.context.properties.EnableConfigurationProperties
+class org.springframework.core.env.MapPropertySource
+class org.springframework.core.env.PropertySource
+class org.springframework.core.io.ClassPathResource
+class org.springframework.core.io.support.EncodedResource
+class org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder
+class org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType
+class org.springframework.security.authentication.dao.DaoAuthenticationProvider
+class org.springframework.security.config.Customizer
+class org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
+class org.springframework.security.config.annotation.web.builders.HttpSecurity
+class org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
+class org.springframework.security.core.Authentication
+class org.springframework.security.core.authority.AuthorityUtils
+class org.springframework.security.core.context.SecurityContextHolder
+class org.springframework.security.core.userdetails.User
+class org.springframework.security.core.userdetails.UserDetails
+class org.springframework.security.core.userdetails.UsernameNotFoundException
+class org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl
+class org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
+class org.springframework.security.crypto.password.NoOpPasswordEncoder
+class org.springframework.security.crypto.password.PasswordEncoder
+class org.springframework.security.provisioning.InMemoryUserDetailsManager
+class org.springframework.security.provisioning.JdbcUserDetailsManager
+class org.springframework.security.provisioning.UserDetailsManager
+class org.springframework.security.test.context.support.WithMockUser
+class org.springframework.security.web.SecurityFilterChain
+class org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler
+class org.springframework.security.web.authentication.logout.SimpleUrlLogoutSuccessHandler
+class org.springframework.security.web.firewall.HttpFirewall
+class org.springframework.security.web.firewall.StrictHttpFirewall
+class org.springframework.security.web.session.SessionInformationExpiredEvent
+class org.springframework.security.web.util.matcher.AntPathRequestMatcher
+class org.springframework.test.web.servlet.MockMvc
+class org.springframework.test.web.servlet.request.MockMvcRequestBuilders
+class org.springframework.test.web.servlet.result.MockMvcResultMatchers
+class org.springframework.ui.Model
+enum io.javabrains.SpringBootSecurity.UserService.ChangePasswordResult
+interface org.springframework.core.io.support.PropertySourceFactory
+interface org.springframework.security.core.userdetails.UserDetailsService
+interface org.springframework.security.web.authentication.AuthenticationSuccessHandler
+interface org.springframework.security.web.session.SessionInformationExpiredStrategy
+io.javabrains.SpringBootSecurity.ConfigService.ConfigurationController ..> org.springframework.beans.factory.annotation.Autowired
+io.javabrains.SpringBootSecurity.ConfigService.ConfigurationController ..> org.springframework.stereotype.Controller
+io.javabrains.SpringBootSecurity.ConfigService.ConfigurationController ..> org.springframework.web.bind.annotation.GetMapping
+io.javabrains.SpringBootSecurity.ConfigService.ConfigurationController ..> org.springframework.web.bind.annotation.PostMapping
+io.javabrains.SpringBootSecurity.ConfigService.ConfigurationController ..> java.io.IOException
+io.javabrains.SpringBootSecurity.ConfigService.ConfigurationController ..> org.springframework.ui.Model
+io.javabrains.SpringBootSecurity.ConfigService.ConfigurationEntity ..> org.springframework.boot.context.properties.ConfigurationProperties
+io.javabrains.SpringBootSecurity.ConfigService.ConfigurationEntity ..> org.springframework.context.annotation.Configuration
+io.javabrains.SpringBootSecurity.ConfigService.ConfigurationEntity ..> org.springframework.context.annotation.PropertySource
+io.javabrains.SpringBootSecurity.ConfigService.ConfigurationEntity ..> org.springframework.stereotype.Component
+io.javabrains.SpringBootSecurity.ConfigService.ConfigurationRepository ..> org.springframework.beans.factory.annotation.Autowired
+io.javabrains.SpringBootSecurity.ConfigService.ConfigurationRepository ..> org.springframework.stereotype.Repository
+io.javabrains.SpringBootSecurity.ConfigService.JsonFileReaderService ..> org.springframework.stereotype.Service
+io.javabrains.SpringBootSecurity.ConfigService.JsonFileReaderService ..> com.fasterxml.jackson.databind.ObjectMapper
+io.javabrains.SpringBootSecurity.ConfigService.JsonFileReaderService ..> java.io.IOException
+io.javabrains.SpringBootSecurity.ConfigService.JsonFileReaderService ..> org.springframework.core.io.ClassPathResource
+io.javabrains.SpringBootSecurity.ConfigService.JsonFileWriterService ..> org.springframework.beans.factory.annotation.Autowired
+io.javabrains.SpringBootSecurity.ConfigService.JsonFileWriterService ..> org.springframework.stereotype.Service
+io.javabrains.SpringBootSecurity.ConfigService.JsonFileWriterService ..> com.fasterxml.jackson.databind.ObjectMapper
+io.javabrains.SpringBootSecurity.ConfigService.JsonFileWriterService ..> com.fasterxml.jackson.databind.ObjectWriter
+io.javabrains.SpringBootSecurity.ConfigService.JsonFileWriterService ..> java.io.IOException
+io.javabrains.SpringBootSecurity.ConfigService.JsonFileWriterService ..> java.nio.file.Files
+io.javabrains.SpringBootSecurity.ConfigService.JsonFileWriterService ..> java.nio.file.Path
+io.javabrains.SpringBootSecurity.ConfigService.JsonFileWriterService ..> java.nio.file.StandardCopyOption
+io.javabrains.SpringBootSecurity.ConfigService.JsonFileWriterService ..> org.springframework.core.io.ClassPathResource
+io.javabrains.SpringBootSecurity.ConfigService.JsonPropertySourceFactory ..> java.lang.Override
+io.javabrains.SpringBootSecurity.ConfigService.JsonPropertySourceFactory ..> org.springframework.context.annotation.Bean
+io.javabrains.SpringBootSecurity.ConfigService.JsonPropertySourceFactory ..> org.springframework.context.annotation.Configuration
+io.javabrains.SpringBootSecurity.ConfigService.JsonPropertySourceFactory ..> com.fasterxml.jackson.databind.ObjectMapper
+io.javabrains.SpringBootSecurity.ConfigService.JsonPropertySourceFactory ..> java.io.IOException
+io.javabrains.SpringBootSecurity.ConfigService.JsonPropertySourceFactory ..> java.util.Map
+io.javabrains.SpringBootSecurity.ConfigService.JsonPropertySourceFactory ..> org.springframework.core.env.MapPropertySource
+io.javabrains.SpringBootSecurity.ConfigService.JsonPropertySourceFactory ..> org.springframework.core.env.PropertySource
+io.javabrains.SpringBootSecurity.ConfigService.JsonPropertySourceFactory ..> org.springframework.core.io.support.EncodedResource
+io.javabrains.SpringBootSecurity.ConfigService.JsonPropertySourceFactory --|> org.springframework.core.io.support.PropertySourceFactory
+io.javabrains.SpringBootSecurity.HomeResource ..> org.springframework.beans.factory.annotation.Autowired
+io.javabrains.SpringBootSecurity.HomeResource ..> org.springframework.stereotype.Controller
+io.javabrains.SpringBootSecurity.HomeResource ..> org.springframework.web.bind.annotation.GetMapping
+io.javabrains.SpringBootSecurity.HomeResource ..> org.springframework.web.bind.annotation.PostMapping
+io.javabrains.SpringBootSecurity.HomeResource ..> io.javabrains.SpringBootSecurity.UserService.UserService
+io.javabrains.SpringBootSecurity.HomeResource ..> javax.servlet.http.HttpServletRequest
+io.javabrains.SpringBootSecurity.HomeResource ..> javax.servlet.http.HttpServletResponse
+io.javabrains.SpringBootSecurity.HomeResource ..> org.springframework.security.core.Authentication
+io.javabrains.SpringBootSecurity.HomeResource ..> org.springframework.security.core.context.SecurityContextHolder
+io.javabrains.SpringBootSecurity.HomeResource ..> org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler
+io.javabrains.SpringBootSecurity.HomeResource ..> org.springframework.ui.Model
+io.javabrains.SpringBootSecurity.HomeResource ..> io.javabrains.SpringBootSecurity.UserService.ChangePasswordResult
+io.javabrains.SpringBootSecurity.SecurityConfigurationDeprecated ..> java.lang.Override
+io.javabrains.SpringBootSecurity.SecurityConfigurationDeprecated ..> org.springframework.context.annotation.Bean
+io.javabrains.SpringBootSecurity.SecurityConfigurationDeprecated ..> org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
+io.javabrains.SpringBootSecurity.SecurityConfigurationDeprecated ..> org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
+io.javabrains.SpringBootSecurity.SecurityConfigurationDeprecated --|> org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
+io.javabrains.SpringBootSecurity.SecurityConfigurationDeprecated ..> org.springframework.security.crypto.password.NoOpPasswordEncoder
+io.javabrains.SpringBootSecurity.SecurityConfigurationDeprecated ..> org.springframework.security.crypto.password.PasswordEncoder
+io.javabrains.SpringBootSecurity.SecurityConfigurationInMemory ..> org.springframework.context.annotation.Bean
+io.javabrains.SpringBootSecurity.SecurityConfigurationInMemory ..> org.springframework.context.annotation.Configuration
+io.javabrains.SpringBootSecurity.SecurityConfigurationInMemory ..> org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
+io.javabrains.SpringBootSecurity.SecurityConfigurationInMemory ..> org.springframework.security.config.Customizer
+io.javabrains.SpringBootSecurity.SecurityConfigurationInMemory ..> org.springframework.security.config.annotation.web.builders.HttpSecurity
+io.javabrains.SpringBootSecurity.SecurityConfigurationInMemory ..> org.springframework.security.core.userdetails.User
+io.javabrains.SpringBootSecurity.SecurityConfigurationInMemory ..> org.springframework.security.core.userdetails.UserDetails
+io.javabrains.SpringBootSecurity.SecurityConfigurationInMemory ..> org.springframework.security.crypto.password.NoOpPasswordEncoder
+io.javabrains.SpringBootSecurity.SecurityConfigurationInMemory ..> org.springframework.security.crypto.password.PasswordEncoder
+io.javabrains.SpringBootSecurity.SecurityConfigurationInMemory ..> org.springframework.security.provisioning.InMemoryUserDetailsManager
+io.javabrains.SpringBootSecurity.SecurityConfigurationInMemory ..> org.springframework.security.web.SecurityFilterChain
+io.javabrains.SpringBootSecurity.SecurityConfigurationInMemory ..> org.springframework.security.web.util.matcher.AntPathRequestMatcher
+io.javabrains.SpringBootSecurity.SecurityConfigurationInMemory ..> org.springframework.security.core.userdetails.UserDetailsService
+io.javabrains.SpringBootSecurity.SecurityConfigurationJDBC ..> org.springframework.context.annotation.Bean
+io.javabrains.SpringBootSecurity.SecurityConfigurationJDBC ..> org.springframework.context.annotation.Configuration
+io.javabrains.SpringBootSecurity.SecurityConfigurationJDBC ..> org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
+io.javabrains.SpringBootSecurity.SecurityConfigurationJDBC ..> javax.sql.DataSource
+io.javabrains.SpringBootSecurity.SecurityConfigurationJDBC ..> org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder
+io.javabrains.SpringBootSecurity.SecurityConfigurationJDBC ..> org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType
+io.javabrains.SpringBootSecurity.SecurityConfigurationJDBC ..> org.springframework.security.config.Customizer
+io.javabrains.SpringBootSecurity.SecurityConfigurationJDBC ..> org.springframework.security.config.annotation.web.builders.HttpSecurity
+io.javabrains.SpringBootSecurity.SecurityConfigurationJDBC ..> org.springframework.security.core.userdetails.User
+io.javabrains.SpringBootSecurity.SecurityConfigurationJDBC ..> org.springframework.security.core.userdetails.UserDetails
+io.javabrains.SpringBootSecurity.SecurityConfigurationJDBC ..> org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl
+io.javabrains.SpringBootSecurity.SecurityConfigurationJDBC ..> org.springframework.security.provisioning.JdbcUserDetailsManager
+io.javabrains.SpringBootSecurity.SecurityConfigurationJDBC ..> org.springframework.security.provisioning.UserDetailsManager
+io.javabrains.SpringBootSecurity.SecurityConfigurationJDBC ..> org.springframework.security.web.SecurityFilterChain
+io.javabrains.SpringBootSecurity.SecurityConfigurationJDBC ..> org.springframework.security.web.util.matcher.AntPathRequestMatcher
+io.javabrains.SpringBootSecurity.SecurityConfigurationJPA ..> org.springframework.beans.factory.annotation.Autowired
+io.javabrains.SpringBootSecurity.SecurityConfigurationJPA ..> org.springframework.context.annotation.Bean
+io.javabrains.SpringBootSecurity.SecurityConfigurationJPA ..> org.springframework.context.annotation.Configuration
+io.javabrains.SpringBootSecurity.SecurityConfigurationJPA ..> org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
+io.javabrains.SpringBootSecurity.SecurityConfigurationJPA ..> io.javabrains.SpringBootSecurity.ConfigService.ConfigurationRepository
+io.javabrains.SpringBootSecurity.SecurityConfigurationJPA ..> io.javabrains.SpringBootSecurity.UserService.CustomSessionInformationExpiredStrategy
+io.javabrains.SpringBootSecurity.SecurityConfigurationJPA ..> io.javabrains.SpringBootSecurity.UserService.CustomUserDetailsService
+io.javabrains.SpringBootSecurity.SecurityConfigurationJPA ..> io.javabrains.SpringBootSecurity.UserService.MyAuthenticationSuccessHandler
+io.javabrains.SpringBootSecurity.SecurityConfigurationJPA ..> org.springframework.security.authentication.dao.DaoAuthenticationProvider
+io.javabrains.SpringBootSecurity.SecurityConfigurationJPA ..> org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
+io.javabrains.SpringBootSecurity.SecurityConfigurationJPA ..> org.springframework.security.config.annotation.web.builders.HttpSecurity
+io.javabrains.SpringBootSecurity.SecurityConfigurationJPA ..> org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
+io.javabrains.SpringBootSecurity.SecurityConfigurationJPA ..> org.springframework.security.crypto.password.PasswordEncoder
+io.javabrains.SpringBootSecurity.SecurityConfigurationJPA ..> org.springframework.security.web.SecurityFilterChain
+io.javabrains.SpringBootSecurity.SecurityConfigurationJPA ..> org.springframework.security.web.firewall.HttpFirewall
+io.javabrains.SpringBootSecurity.SecurityConfigurationJPA ..> org.springframework.security.web.firewall.StrictHttpFirewall
+io.javabrains.SpringBootSecurity.SecurityConfigurationJPA ..> org.springframework.security.web.util.matcher.AntPathRequestMatcher
+io.javabrains.SpringBootSecurity.SecurityConfigurationJPA ..> org.springframework.security.core.userdetails.UserDetailsService
+io.javabrains.SpringBootSecurity.SecurityConfigurationJPA ..> org.springframework.security.web.authentication.AuthenticationSuccessHandler
+io.javabrains.SpringBootSecurity.SecurityConfigurationJPA ..> org.springframework.security.web.session.SessionInformationExpiredStrategy
+io.javabrains.SpringBootSecurity.SpringBootSecurityApplication ..> org.springframework.boot.autoconfigure.SpringBootApplication
+io.javabrains.SpringBootSecurity.SpringBootSecurityApplication ..> org.springframework.context.annotation.ComponentScan
+io.javabrains.SpringBootSecurity.SpringBootSecurityApplication ..> org.springframework.context.annotation.PropertySource
+io.javabrains.SpringBootSecurity.SpringBootSecurityApplication ..> org.springframework.boot.SpringApplication
+io.javabrains.SpringBootSecurity.SpringBootSecurityApplication ..> org.springframework.boot.context.properties.ConfigurationPropertiesScan
+io.javabrains.SpringBootSecurity.SpringBootSecurityApplication ..> org.springframework.boot.context.properties.EnableConfigurationProperties
+io.javabrains.SpringBootSecurity.SpringBootSecurityApplicationTests ..> org.springframework.beans.factory.annotation.Autowired
+io.javabrains.SpringBootSecurity.SpringBootSecurityApplicationTests ..> org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
+io.javabrains.SpringBootSecurity.SpringBootSecurityApplicationTests ..> org.springframework.boot.test.context.SpringBootTest
+io.javabrains.SpringBootSecurity.SpringBootSecurityApplicationTests ..> org.junit.jupiter.api.Test
+io.javabrains.SpringBootSecurity.SpringBootSecurityApplicationTests ..> org.springframework.security.test.context.support.WithMockUser
+io.javabrains.SpringBootSecurity.SpringBootSecurityApplicationTests ..> org.springframework.test.web.servlet.MockMvc
+io.javabrains.SpringBootSecurity.SpringBootSecurityApplicationTests ..> org.springframework.test.web.servlet.request.MockMvcRequestBuilders
+io.javabrains.SpringBootSecurity.SpringBootSecurityApplicationTests ..> org.springframework.test.web.servlet.result.MockMvcResultMatchers
+io.javabrains.SpringBootSecurity.UserService.CustomLogoutSuccessHandler ..> java.lang.Override
+io.javabrains.SpringBootSecurity.UserService.CustomLogoutSuccessHandler ..> java.io.IOException
+io.javabrains.SpringBootSecurity.UserService.CustomLogoutSuccessHandler ..> javax.servlet.ServletException
+io.javabrains.SpringBootSecurity.UserService.CustomLogoutSuccessHandler ..> javax.servlet.http.Cookie
+io.javabrains.SpringBootSecurity.UserService.CustomLogoutSuccessHandler ..> javax.servlet.http.HttpServletRequest
+io.javabrains.SpringBootSecurity.UserService.CustomLogoutSuccessHandler ..> javax.servlet.http.HttpServletResponse
+io.javabrains.SpringBootSecurity.UserService.CustomLogoutSuccessHandler ..> org.springframework.security.core.Authentication
+io.javabrains.SpringBootSecurity.UserService.CustomLogoutSuccessHandler --|> org.springframework.security.web.authentication.logout.SimpleUrlLogoutSuccessHandler
+io.javabrains.SpringBootSecurity.UserService.CustomSessionInformationExpiredStrategy ..> java.lang.Override
+io.javabrains.SpringBootSecurity.UserService.CustomSessionInformationExpiredStrategy ..> java.io.IOException
+io.javabrains.SpringBootSecurity.UserService.CustomSessionInformationExpiredStrategy ..> javax.servlet.ServletException
+io.javabrains.SpringBootSecurity.UserService.CustomSessionInformationExpiredStrategy ..> org.springframework.security.web.session.SessionInformationExpiredEvent
+io.javabrains.SpringBootSecurity.UserService.CustomSessionInformationExpiredStrategy --|> org.springframework.security.web.session.SessionInformationExpiredStrategy
+io.javabrains.SpringBootSecurity.UserService.CustomUser ..> javax.persistence.Entity
+io.javabrains.SpringBootSecurity.UserService.CustomUser ..> javax.persistence.Id
+io.javabrains.SpringBootSecurity.UserService.CustomUserDetailsService ..> java.lang.Override
+io.javabrains.SpringBootSecurity.UserService.CustomUserDetailsService ..> org.springframework.stereotype.Service
+io.javabrains.SpringBootSecurity.UserService.CustomUserDetailsService ..> org.springframework.security.core.userdetails.UserDetails
+io.javabrains.SpringBootSecurity.UserService.CustomUserDetailsService ..> org.springframework.security.core.userdetails.UsernameNotFoundException
+io.javabrains.SpringBootSecurity.UserService.CustomUserDetailsService --|> org.springframework.security.core.userdetails.UserDetailsService
+io.javabrains.SpringBootSecurity.UserService.MyAuthenticationSuccessHandler ..> org.springframework.beans.factory.annotation.Autowired
+io.javabrains.SpringBootSecurity.UserService.MyAuthenticationSuccessHandler ..> org.springframework.stereotype.Component
+io.javabrains.SpringBootSecurity.UserService.MyAuthenticationSuccessHandler ..> io.javabrains.SpringBootSecurity.ConfigService.ConfigurationRepository
+io.javabrains.SpringBootSecurity.UserService.MyAuthenticationSuccessHandler ..> java.io.IOException
+io.javabrains.SpringBootSecurity.UserService.MyAuthenticationSuccessHandler ..> java.util.Set
+io.javabrains.SpringBootSecurity.UserService.MyAuthenticationSuccessHandler ..> javax.servlet.http.HttpServletRequest
+io.javabrains.SpringBootSecurity.UserService.MyAuthenticationSuccessHandler ..> javax.servlet.http.HttpServletResponse
+io.javabrains.SpringBootSecurity.UserService.MyAuthenticationSuccessHandler ..> org.springframework.security.core.Authentication
+io.javabrains.SpringBootSecurity.UserService.MyAuthenticationSuccessHandler ..> org.springframework.security.core.authority.AuthorityUtils
+io.javabrains.SpringBootSecurity.UserService.MyAuthenticationSuccessHandler --|> org.springframework.security.web.authentication.AuthenticationSuccessHandler
+io.javabrains.SpringBootSecurity.UserService.UserRepository ..> org.springframework.stereotype.Repository
+io.javabrains.SpringBootSecurity.UserService.UserRepository ..> java.util.HashMap
+io.javabrains.SpringBootSecurity.UserService.UserRepository ..> java.util.Map
+io.javabrains.SpringBootSecurity.UserService.UserRepository ..> org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
+io.javabrains.SpringBootSecurity.UserService.UserRepository ..> org.springframework.security.crypto.password.PasswordEncoder
+io.javabrains.SpringBootSecurity.UserService.UserService ..> org.springframework.beans.factory.annotation.Autowired
+io.javabrains.SpringBootSecurity.UserService.UserService ..> org.springframework.context.annotation.Bean
+io.javabrains.SpringBootSecurity.UserService.UserService ..> org.springframework.stereotype.Service
+io.javabrains.SpringBootSecurity.UserService.UserService ..> org.springframework.security.core.Authentication
+io.javabrains.SpringBootSecurity.UserService.UserService ..> org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
+io.javabrains.SpringBootSecurity.UserService.UserService ..> org.springframework.security.crypto.password.NoOpPasswordEncoder
+io.javabrains.SpringBootSecurity.UserService.UserService ..> org.springframework.security.crypto.password.PasswordEncoder
+@enduml

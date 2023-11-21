@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+
+<head>
+    <title>Login page</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="/static/css/main.css" th:href="@{/css/main.css}" />
+</head>
+
+<body>
+    <h1>Login page</h1>
+    <div th:if="${param.logout}">
+        <p style="color: green;">Logout successful.</p>
+    </div>
+    <div th:if="${param.error}">
+        <p style="color: red;">Login failed. Please check your credentials.</p>
+    </div>
+    <div th:if="${param.sessionexpired}">Session expired. Please log in again.</div>
+    <div th:if="${param.sessionautherror}">Session authentication error. Please log in again.</div>
+
+    <form th:action="@{/login}" method="post">
+        <label for="username">Username</label>:
+        <input type="text" id="username" name="username" autofocus="autofocus" /> <br />
+        <label for="password">Password</label>:
+        <input type="password" id="password" name="password" /> <br />
+        <input type="submit" value="Log in" />
+    </form>
+    <p><a href="/" th:href="@{/}">Back to home page</a></p>
+</body>
+
+</html>

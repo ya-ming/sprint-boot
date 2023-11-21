@@ -1,0 +1,17 @@
+<html xmlns:th="https://www.thymeleaf.org">
+
+<head>
+    <title>Hello Security!</title>
+</head>
+
+<body>
+    <h1>Hello Security! - home</h1>
+
+    <div th:text="${result.getMessage()}"></div>
+
+    <div th:if="${result}" th:text="${result.getMessage()}" class="result-message">
+        <!-- This div will display the appropriate message based on the result -->
+    </div>
+</body>
+
+</html>
