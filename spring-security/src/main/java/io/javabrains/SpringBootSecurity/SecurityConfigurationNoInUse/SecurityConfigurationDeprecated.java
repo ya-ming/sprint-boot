@@ -1,4 +1,4 @@
-package io.javabrains.SpringBootSecurity;
+package io.javabrains.SpringBootSecurity.SecurityConfigurationNoInUse;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;

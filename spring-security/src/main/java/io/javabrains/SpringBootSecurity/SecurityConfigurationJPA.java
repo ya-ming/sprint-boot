@@ -27,22 +27,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfigurationJPA {
-    // Inject ConfigurationRepository
-    private final ConfigurationRepository configurationRepository;
+    // Inject
+    private AuthenticationSuccessHandler authenticationSuccessHandler;
+    private SessionInformationExpiredStrategy sessionInformationExpiredStrategy;
+    private DaoAuthenticationProvider authenticationProvider;
 
-    public SecurityConfigurationJPA(ConfigurationRepository configurationRepository) {
-        this.configurationRepository = configurationRepository;
-    }
-
-    @Bean
-    public AuthenticationSuccessHandler myAuthenticationSuccessHandler() {
-        return new MyAuthenticationSuccessHandler(configurationRepository);
-    }
-    // end of injection
-
-    @Bean
-    public SessionInformationExpiredStrategy customSessionInformationExpiredStrategy() {
-        return new CustomSessionInformationExpiredStrategy();
+    public SecurityConfigurationJPA(
+            AuthenticationSuccessHandler authenticationSuccessHandler,
+            SessionInformationExpiredStrategy sessionInformationExpiredStrategy,
+            DaoAuthenticationProvider authenticationProvider) {
+        this.authenticationSuccessHandler = authenticationSuccessHandler;
+        this.sessionInformationExpiredStrategy = sessionInformationExpiredStrategy;
+        this.authenticationProvider = authenticationProvider;
     }
 
     @Bean
@@ -60,7 +56,7 @@ public class SecurityConfigurationJPA {
                 .formLogin((form) -> form
                         .loginPage("/login")
                         .permitAll()
-                        .successHandler(myAuthenticationSuccessHandler())
+                        .successHandler(authenticationSuccessHandler)
                         .failureUrl("/login?error"))
                 .logout(logout -> logout
                         .logoutSuccessUrl("/login?logout")
@@ -75,7 +71,7 @@ public class SecurityConfigurationJPA {
         http.sessionManagement(management -> management
             // .sessionAuthenticationErrorUrl("/login?sessionautherror=true")
             .maximumSessions(5)
-            .expiredSessionStrategy(customSessionInformationExpiredStrategy())); // this doesn't work
+            .expiredSessionStrategy(sessionInformationExpiredStrategy)); // this doesn't work
             // .expiredUrl("/login?sessionexpired"));
 
 
@@ -87,24 +83,7 @@ public class SecurityConfigurationJPA {
         return http.build();
     }
 
-    // @Bean
-    public UserDetailsService userDetailsService() {
-        return new CustomUserDetailsService();
-    }
 
-    // @Bean
-    public PasswordEncoder passwordEncoder() {
-        // return NoOpPasswordEncoder.getInstance();
-        return new BCryptPasswordEncoder();
-    }
-
-    // @Bean
-    public DaoAuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-        provider.setUserDetailsService(userDetailsService());
-        provider.setPasswordEncoder(passwordEncoder());
-        return provider;
-    }
 
     // need to remove @Bean from the above functions, otherwise got error
     // org.springframework.beans.factory.BeanCurrentlyInCreationException: Error
@@ -113,14 +92,6 @@ public class SecurityConfigurationJPA {
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         // auth.userDetailsService(userDetailsService());
-        auth.authenticationProvider(authenticationProvider());
-    }
-
-    // Redirect HTTP to HTTPS
-    @Bean
-    public HttpFirewall allowUrlEncodedSlashHttpFirewall() {
-        StrictHttpFirewall firewall = new StrictHttpFirewall();
-        firewall.setAllowUrlEncodedSlash(true);
-        return firewall;
+        auth.authenticationProvider(authenticationProvider);
     }
 }

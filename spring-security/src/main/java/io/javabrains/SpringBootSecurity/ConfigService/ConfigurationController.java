@@ -15,7 +15,7 @@ public class ConfigurationController {
     private final ConfigurationRepository configurationRepository;
     private final JsonFileWriterService jsonFileWriterService;
 
-    @Autowired
+    // @Autowired is not needed
     public ConfigurationController(ConfigurationRepository configurationRepository, JsonFileWriterService jsonFileWriterService) {
         this.configurationRepository = configurationRepository;
         this.jsonFileWriterService = jsonFileWriterService;

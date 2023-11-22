@@ -1,9 +1,6 @@
 package io.javabrains.SpringBootSecurity.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -12,11 +9,8 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        // return NoOpPasswordEncoder.getInstance();
-        return new BCryptPasswordEncoder();
-    }
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public boolean isTruePassword(String username, String oldPassword) {
         System.out.println(oldPassword);
@@ -25,7 +19,7 @@ public class UserService {
 
         if (user != null) {
             System.out.println("Find User True");
-            boolean check = passwordEncoder().matches(oldPassword, user.getPassword());
+            boolean check = passwordEncoder.matches(oldPassword, user.getPassword());
             if (check) {
                 System.out.println("Password verification pass");
                 return check;
@@ -46,7 +40,7 @@ public class UserService {
         boolean checkPassword = isTruePassword(username, oldPassword);
         if (checkPassword) {
             if (newPassword.equals(confirmPassword)) {
-                userRepository.updatePassword(user, passwordEncoder().encode(newPassword));
+                userRepository.updatePassword(user, passwordEncoder.encode(newPassword));
 
                 result = ChangePasswordResult.SUCCESS;
             } else {

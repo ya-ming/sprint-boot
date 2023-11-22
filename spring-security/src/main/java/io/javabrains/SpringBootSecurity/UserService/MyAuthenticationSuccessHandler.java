@@ -13,7 +13,7 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import io.javabrains.SpringBootSecurity.ConfigService.ConfigurationRepository;
 
 public class MyAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
-    private final ConfigurationRepository configurationRepository;
+    private ConfigurationRepository configurationRepository;
 
     public MyAuthenticationSuccessHandler(ConfigurationRepository configurationRepository) {
         this.configurationRepository = configurationRepository;

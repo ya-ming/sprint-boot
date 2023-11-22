@@ -9,14 +9,13 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
 
 @Service
 public class JsonFileWriterService {
 
     private final ObjectMapper objectMapper;
 
-    @Autowired
+    // @Autowired is not needed
     public JsonFileWriterService(ObjectMapper objectMapper) {
         this.objectMapper = objectMapper;
     }
@@ -36,4 +35,3 @@ public class JsonFileWriterService {
         // Files.move(updatedFilePath, filePath, StandardCopyOption.REPLACE_EXISTING);
     }
 }
-

@@ -5,9 +5,9 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class ConfigurationRepository {
-    ConfigurationEntity configurationEntity;
+    private ConfigurationEntity configurationEntity;
 
-    @Autowired
+    // @Autowired is not needed
     public ConfigurationRepository(ConfigurationEntity configurationEntity) {
         this.configurationEntity = configurationEntity;
     }
