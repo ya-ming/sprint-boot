@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+@Component
 public class CustomUserDetailsService implements UserDetailsService {
 
     // Simulated database or repository to fetch user details

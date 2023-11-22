@@ -16,6 +16,7 @@ import org.springframework.security.web.session.SessionInformationExpiredStrateg
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import io.javabrains.SpringBootSecurity.ConfigService.ConfigurationRepository;
+import io.javabrains.SpringBootSecurity.UserService.CustomDaoAuthenticationProvider;
 import io.javabrains.SpringBootSecurity.UserService.CustomSessionInformationExpiredStrategy;
 import io.javabrains.SpringBootSecurity.UserService.CustomUserDetailsService;
 import io.javabrains.SpringBootSecurity.UserService.MyAuthenticationSuccessHandler;
@@ -28,17 +29,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 @EnableWebSecurity
 public class SecurityConfigurationJPA {
     // Inject
+    // @Autowired
     private AuthenticationSuccessHandler authenticationSuccessHandler;
+
     private SessionInformationExpiredStrategy sessionInformationExpiredStrategy;
-    private DaoAuthenticationProvider authenticationProvider;
+    private CustomDaoAuthenticationProvider authenticationProvider;
 
     public SecurityConfigurationJPA(
             AuthenticationSuccessHandler authenticationSuccessHandler,
             SessionInformationExpiredStrategy sessionInformationExpiredStrategy,
-            DaoAuthenticationProvider authenticationProvider) {
+            CustomDaoAuthenticationProvider customAuthenticationProvider) {
         this.authenticationSuccessHandler = authenticationSuccessHandler;
         this.sessionInformationExpiredStrategy = sessionInformationExpiredStrategy;
-        this.authenticationProvider = authenticationProvider;
+        this.authenticationProvider = customAuthenticationProvider;
     }
 
     @Bean
@@ -89,7 +92,7 @@ public class SecurityConfigurationJPA {
     // org.springframework.beans.factory.BeanCurrentlyInCreationException: Error
     // creating bean with name 'securityConfigurationJPA': Requested bean is
     // currently in creation: Is there an unresolvable circular reference?
-    @Autowired
+    // @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         // auth.userDetailsService(userDetailsService());
         auth.authenticationProvider(authenticationProvider);

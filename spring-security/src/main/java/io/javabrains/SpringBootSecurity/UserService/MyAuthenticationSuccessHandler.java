@@ -9,9 +9,11 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.stereotype.Component;
 
 import io.javabrains.SpringBootSecurity.ConfigService.ConfigurationRepository;
 
+@Component
 public class MyAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
     private ConfigurationRepository configurationRepository;
 
