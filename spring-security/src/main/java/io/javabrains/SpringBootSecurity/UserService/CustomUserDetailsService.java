@@ -3,10 +3,9 @@ package io.javabrains.SpringBootSecurity.UserService;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-@Component
+@Service
 public class CustomUserDetailsService implements UserDetailsService {
 
     // Simulated database or repository to fetch user details

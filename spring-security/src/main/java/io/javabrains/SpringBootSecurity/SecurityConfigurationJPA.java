@@ -28,7 +28,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfigurationJPA {
-    // Inject
+    // @Autowired to mark a dependency which Spring is going to resolve and inject
     // @Autowired
     private AuthenticationSuccessHandler authenticationSuccessHandler;
 
@@ -45,7 +45,7 @@ public class SecurityConfigurationJPA {
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         // @formatter:off
         http
                 .authorizeHttpRequests((authorize) -> authorize
