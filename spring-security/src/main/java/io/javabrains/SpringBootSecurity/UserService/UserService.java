@@ -52,4 +52,8 @@ public class UserService {
 
         return result;
     }
+
+    public boolean isUserAllowed() {
+        return true;
+    }
 }

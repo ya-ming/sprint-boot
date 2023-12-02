@@ -1,5 +1,6 @@
 package io.javabrains.SpringBootSecurity;
 
+import io.javabrains.SpringBootSecurity.Filter.TenantFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -9,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.intercept.AuthorizationFilter;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.firewall.HttpFirewall;
 import org.springframework.security.web.firewall.StrictHttpFirewall;
@@ -35,13 +37,17 @@ public class SecurityConfigurationJPA {
     private SessionInformationExpiredStrategy sessionInformationExpiredStrategy;
     private CustomDaoAuthenticationProvider authenticationProvider;
 
+    private TenantFilter tenantFilter;
+
     public SecurityConfigurationJPA(
             AuthenticationSuccessHandler authenticationSuccessHandler,
             SessionInformationExpiredStrategy sessionInformationExpiredStrategy,
-            CustomDaoAuthenticationProvider customAuthenticationProvider) {
+            CustomDaoAuthenticationProvider customAuthenticationProvider,
+            TenantFilter tenantFilter) {
         this.authenticationSuccessHandler = authenticationSuccessHandler;
         this.sessionInformationExpiredStrategy = sessionInformationExpiredStrategy;
         this.authenticationProvider = customAuthenticationProvider;
+        this.tenantFilter = tenantFilter;
     }
 
     @Bean
@@ -63,7 +69,8 @@ public class SecurityConfigurationJPA {
                         .failureUrl("/login?error"))
                 .logout(logout -> logout
                         .logoutSuccessUrl("/login?logout")
-                        .permitAll());  // permitAll() is needed to redirect user to /login with ?logout
+                        .permitAll())  // permitAll() is needed to redirect user to /login with ?logout
+                .addFilterBefore(tenantFilter, AuthorizationFilter.class);
                 // .logout();//.logoutUrl("/logout");//.logoutSuccessHandler(new CustomLogoutSuccessHandler()).invalidateHttpSession(true);
                 // .logout(logout -> logout
                 //         // .logoutUrl("/logout")
