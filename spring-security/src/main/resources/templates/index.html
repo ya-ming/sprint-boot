@@ -6,7 +6,9 @@
 
 <body>
     <h1>Hello Security!</h1>
-    <a id="logout" th:href="@{/logout}">Log Out</a>
+    <form th:action="@{/logout}" method = "post">
+        <input type="submit" value="Log out" />
+    </form>
 </body>
 
 </html>

@@ -15,15 +15,15 @@ public class CustomLogoutSuccessHandler extends SimpleUrlLogoutSuccessHandler {
     @Override
     public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
             throws IOException, ServletException {
-        Cookie cookie = new Cookie("JSESSIONID", null);
-        cookie.setPath(request.getContextPath());
-        cookie.setMaxAge(0);
-        response.addCookie(cookie);
+//        Cookie cookie = new Cookie("JSESSIONID", null);
+//        cookie.setPath(request.getContextPath());
+//        cookie.setMaxAge(0);
+//        response.addCookie(cookie);
 
         if (request.getParameter("expired") != null) {
-            response.sendRedirect(request.getContextPath() + "/login?expired=true");
+            response.sendRedirect(request.getContextPath() + "/login?expired");
         } else {
-            response.sendRedirect(request.getContextPath() + "/login?logout=true");
+            response.sendRedirect(request.getContextPath() + "/login?logout");
         }
     }
 }

@@ -1,6 +1,7 @@
 package io.javabrains.SpringBootSecurity;
 
 import io.javabrains.SpringBootSecurity.Filter.TenantFilter;
+import io.javabrains.SpringBootSecurity.UserService.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -12,16 +13,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.intercept.AuthorizationFilter;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.logout.HeaderWriterLogoutHandler;
 import org.springframework.security.web.firewall.HttpFirewall;
 import org.springframework.security.web.firewall.StrictHttpFirewall;
+import org.springframework.security.web.header.writers.ClearSiteDataHeaderWriter;
 import org.springframework.security.web.session.SessionInformationExpiredStrategy;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import io.javabrains.SpringBootSecurity.ConfigService.ConfigurationRepository;
-import io.javabrains.SpringBootSecurity.UserService.CustomDaoAuthenticationProvider;
-import io.javabrains.SpringBootSecurity.UserService.CustomSessionInformationExpiredStrategy;
-import io.javabrains.SpringBootSecurity.UserService.CustomUserDetailsService;
-import io.javabrains.SpringBootSecurity.UserService.MyAuthenticationSuccessHandler;
 
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 
@@ -47,8 +46,14 @@ public class SecurityConfigurationJPA {
         this.tenantFilter = tenantFilter;
     }
 
+//    HeaderWriterLogoutHandler clearSiteData() {
+//        return new HeaderWriterLogoutHandler(new ClearSiteDataHeaderWriter());
+//    }
+
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+
+
         // @formatter:off
         http
                 .authorizeHttpRequests((authorize) -> authorize
@@ -65,8 +70,11 @@ public class SecurityConfigurationJPA {
                         .successHandler(authenticationSuccessHandler)
                         .failureUrl("/login?error"))
                 .logout(logout -> logout
-                        .logoutSuccessUrl("/login?logout")
-                        .permitAll())  // permitAll() is needed to redirect user to /login with ?logout
+                        .logoutUrl("/logout")
+                        .addLogoutHandler(new HeaderWriterLogoutHandler(new ClearSiteDataHeaderWriter(ClearSiteDataHeaderWriter.Directive.ALL)))
+                        .permitAll()
+                        .logoutSuccessHandler(new CustomLogoutSuccessHandler())
+                )  // permitAll() is needed to redirect user to /login with ?logout
                 .addFilterBefore(tenantFilter, AuthorizationFilter.class);
                 // .logout();//.logoutUrl("/logout");//.logoutSuccessHandler(new CustomLogoutSuccessHandler()).invalidateHttpSession(true);
                 // .logout(logout -> logout
