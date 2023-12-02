@@ -35,18 +35,15 @@ public class SecurityConfigurationJPA {
     private AuthenticationSuccessHandler authenticationSuccessHandler;
 
     private SessionInformationExpiredStrategy sessionInformationExpiredStrategy;
-    private CustomDaoAuthenticationProvider authenticationProvider;
 
     private TenantFilter tenantFilter;
 
     public SecurityConfigurationJPA(
             AuthenticationSuccessHandler authenticationSuccessHandler,
             SessionInformationExpiredStrategy sessionInformationExpiredStrategy,
-            CustomDaoAuthenticationProvider customAuthenticationProvider,
             TenantFilter tenantFilter) {
         this.authenticationSuccessHandler = authenticationSuccessHandler;
         this.sessionInformationExpiredStrategy = sessionInformationExpiredStrategy;
-        this.authenticationProvider = customAuthenticationProvider;
         this.tenantFilter = tenantFilter;
     }
 
@@ -91,17 +88,5 @@ public class SecurityConfigurationJPA {
 
         // @formatter:on
         return http.build();
-    }
-
-
-
-    // need to remove @Bean from the above functions, otherwise got error
-    // org.springframework.beans.factory.BeanCurrentlyInCreationException: Error
-    // creating bean with name 'securityConfigurationJPA': Requested bean is
-    // currently in creation: Is there an unresolvable circular reference?
-    // @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        // auth.userDetailsService(userDetailsService());
-        auth.authenticationProvider(authenticationProvider);
     }
 }
