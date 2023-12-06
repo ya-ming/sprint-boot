@@ -94,3 +94,6 @@
 * Session management
 * Configuration
     * Read/Write path of config.json `spring-security\build\resources\main\config.json`
+* Internationalization
+  * LocaleResolver
+  * LocaleChangeInterceptor
