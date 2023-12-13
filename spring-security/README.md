@@ -97,3 +97,5 @@
 * Internationalization
   * LocaleResolver
   * LocaleChangeInterceptor
+* Certificate Verification
+  * Using bouncycastle

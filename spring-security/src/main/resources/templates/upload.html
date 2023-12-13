@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Certificate and Private Key</title>
+</head>
+<body>
+<h2>Upload Certificate and Private Key</h2>
+
+<div th:if="${result}" th:text="${message.getMessage()}" class="message">
+    <!-- This div will display the appropriate message based on the result -->
+</div>
+<form th:action="@{/upload}" method="post" enctype="multipart/form-data" th:object="${upload}">
+    <label for="certificate">Certificate:</label>
+    <input type="file" name="certificate" id="certificate" accept=".pem, .crt" required><br>
+
+    <label for="privateKey">Private Key:</label>
+    <input type="file" name="privateKey" id="privateKey" accept=".key" required><br>
+
+    <button type="submit">Upload</button>
+</form>
+</body>
+</html>

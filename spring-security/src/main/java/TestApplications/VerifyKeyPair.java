@@ -1,56 +1,50 @@
 package TestApplications;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.security.*;
-import java.security.cert.CertificateFactory;
-import java.security.cert.X509Certificate;
-
 import org.bouncycastle.asn1.pkcs.PrivateKeyInfo;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.openssl.PEMParser;
 import org.bouncycastle.openssl.jcajce.JcaPEMKeyConverter;
 
-public class KeyCertificateMatcher {
+import java.io.ByteArrayInputStream;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+import java.security.PrivateKey;
+import java.security.PublicKey;
+import java.security.*;
+import java.security.cert.CertificateFactory;
+import java.security.cert.X509Certificate;
 
+public class VerifyKeyPair {
     static {
         // Add Bouncy Castle as a security provider
         Security.addProvider(new BouncyCastleProvider());
     }
 
-    public static boolean doKeysMatch(byte[] privateKeyBytes, byte[] certificateBytes) {
+    public static void main(String[] args) {
         try {
-            // Parse the private key
+            // Read the private key in PEM format using FileInputStream
+            FileInputStream privateKeyFileInputStream = new FileInputStream("uploads/keypair/uploaded/private_key.key");
+            byte[] privateKeyBytes = privateKeyFileInputStream.readAllBytes();
+
+            // Read the public key in PEM format using FileInputStream
+            FileInputStream publicKeyFileInputStream = new FileInputStream("uploads/keypair/uploaded/certificate.pem");
+            byte[] publicKeyBytes = publicKeyFileInputStream.readAllBytes();
+
+            // Convert bytes to keys
             PEMParser privateKeyParser = new PEMParser(new InputStreamReader(new ByteArrayInputStream(privateKeyBytes)));
             Object privateKeyObject = privateKeyParser.readObject();
             if (!(privateKeyObject instanceof PrivateKeyInfo)) {
-                return false; // Not a valid private key
+                return; // Not a valid private key
             }
             PrivateKeyInfo privateKeyInfo = (PrivateKeyInfo) privateKeyObject;
-
             privateKeyParser.close();
-
-            // Convert PrivateKeyInfo to PrivateKey
-//            KeyFactory keyFactory = KeyFactory.getInstance("RSA"); // Use the appropriate algorithm (RSA, EC, etc.)
-//            PKCS8EncodedKeySpec privateKeySpec = new PKCS8EncodedKeySpec(privateKeyInfo.getEncoded());
-//            PrivateKey privateKey = keyFactory.generatePrivate(privateKeySpec);
-
-            // Extract RSA-specific components
-//            RSAPrivateKeySpec rsaPrivateKeySpec = keyFactory.getKeySpec(privateKey, RSAPrivateKeySpec.class);
-            // Convert PrivateKeyInfo to PrivateKey
-
             JcaPEMKeyConverter converter = new JcaPEMKeyConverter();
             PrivateKey privateKey = converter.getPrivateKey(privateKeyInfo);
-
 
             // Parse the certificate
             CertificateFactory certificateFactory = CertificateFactory.getInstance("X.509");
             X509Certificate certificate = (X509Certificate) certificateFactory
-                    .generateCertificate(new ByteArrayInputStream(certificateBytes));
+                    .generateCertificate(new ByteArrayInputStream(publicKeyBytes));
 
             // Compare public keys
             PublicKey publicKey = certificate.getPublicKey();
@@ -59,11 +53,8 @@ public class KeyCertificateMatcher {
             boolean keyPairMatch = verifyKeyPair(privateKey, publicKey);
 
             System.out.println("Key pair match: " + keyPairMatch);
-
-            return keyPairMatch;
-        } catch (IOException | java.security.cert.CertificateException e) {
+        } catch (Exception e) {
             e.printStackTrace();
-            return false;
         }
     }
 
@@ -97,21 +88,5 @@ public class KeyCertificateMatcher {
 //                && privateKey.getFormat().equals(publicKey.getFormat())
 //                && java.util.Arrays.equals(privateKey.getEncoded(), publicKey.getEncoded());
     }
-
-    public static void main(String[] args) {
-        try {
-            // Load private key from file
-            Path privateKeyPath = Paths.get("uploads/keypair/uploaded/private_key.key");
-            byte[] privateKeyBytes = Files.readAllBytes(privateKeyPath);
-
-            // Load certificate from file
-            Path certificatePath = Paths.get("uploads/keypair/uploaded/certificate.pem");
-            byte[] certificateBytes = Files.readAllBytes(certificatePath);
-
-            boolean keysMatch = doKeysMatch(privateKeyBytes, certificateBytes);
-            System.out.println("Do Keys Match: " + keysMatch);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 }
+
