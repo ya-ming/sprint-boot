@@ -39,3 +39,5 @@ out/
 ### keystore ###
 *.p12
 uploads/
+myCA/
+keypair/

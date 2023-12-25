@@ -99,3 +99,73 @@
   * LocaleChangeInterceptor
 * Certificate Verification
   * Using bouncycastle
+* Use chain of cert
+	* Generate a Root Certificate
+```shell
+# Generate a private key for the root CA
+openssl genpkey -algorithm RSA -out root-key.pem
+
+# Generate a self-signed root certificate
+openssl req -x509 -new -key root-key.pem -out root-cert.pem
+```
+	* Generate an Intermediate Certificate
+```shell
+# Generate a private key for the intermediate CA
+openssl genpkey -algorithm RSA -out intermediate-key.pem
+
+# Generate a CSR (Certificate Signing Request) for the intermediate CA
+openssl req -new -key intermediate-key.pem -out intermediate-csr.pem
+
+# Sign the intermediate CSR with the root CA to create the intermediate certificate
+openssl x509 -req -in intermediate-csr.pem -CA root-cert.pem -CAkey root-key.pem -CAcreateserial -out intermediate-cert.pem
+
+openssl x509 -in intermediate-cert.pem -text -noout
+```
+	* Generate an End-Entity (Leaf) Certificate
+```shell
+# Generate a private key for the end-entity
+openssl genpkey -algorithm RSA -out entity-key.pem
+
+# Generate a CSR for the end-entity with IP address in the SAN extension
+openssl req -new -key entity-key.pem -out entity-csr.pem -config san.cnf -extensions 'v3_req'
+
+openssl req -config openssl_intermediate.cnf -key ~/myCA/intermediateCA/private/www.example.com.key.pem -new -sha256 -out ~/myCA/intermediateCA/csr/www.example.com.csr.pem -batch
+
+# Inspect csr
+openssl req -noout -text -in entity-csr.pem
+
+# Sign the entity CSR with the intermediate CA to create the end-entity certificate
+# Use -extfile san.cnf -extensions 'v3_req' to add SANs to cert
+openssl x509 -req -in entity-csr.pem -CA intermediate-cert.pem -CAkey intermediate-key.pem -CAcreateserial -out entity-cert.pem  -extfile san.cnf -extensions 'v3_req'
+
+# Inspect the cert
+openssl x509 -in entity-cert.pem -text -noout
+```
+
+	* Verify the Certificate Chain
+```shell
+openssl verify -CAfile root-cert.pem intermediate-cert.pem entity-cert.pem
+```
+
+	* Package the Chain
+```shell
+# Package the Chain
+cat entity-cert.pem intermediate-cert.pem root-cert.pem > certificate-chain.pem
+# or powershell
+Get-Content entity-cert.pem, intermediate-cert.pem, root-cert.pem | Set-Content certificate-chain.pem
+Get-Content leaf.pem, intermediate.pem, root.pem | Set-Content certificate-chain.pem
+```
+	* Convert pem to crt
+```shell
+openssl x509 -outform der -in leaf.pem -out leaf.crt
+openssl x509 -outform der -in root.pem -out root.crt
+openssl x509 -outform der -in intermediate.pem -out intermediate.crt
+
+openssl verify -CAfile root.pem intermediate.pem leaf.pem
+
+Get-Content leaf.pem, intermediate.pem, root.pem | Set-Content certificate-chain.pem
+```
+
+
+openssl req -config .\openssl.cnf -key intermediateCA/private/www.example.com.key.pem -new -sha256 -out intermediateCA/csr/www.example.com.csr.pem -extensions 'v3_req'
+openssl ca -config .\openssl.cnf -extensions server_cert -days 375 -notext -md sha256 -in intermediateCA/csr/www.example.com.csr.pem -out intermediateCA/certs/www.example.com.cert.pem
