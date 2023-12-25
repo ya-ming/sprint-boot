@@ -1,0 +1,21 @@
+<!-- src/main/resources/templates/configure.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Repost Page</title>
+</head>
+<body>
+    <h2>Repost</h2>
+
+    <div th:if="${result}" th:text="${result}" class="result-message">
+        <!-- This div will display the appropriate message based on the result -->
+    </div>
+
+    <form th:action="@{/repost}" method="post" th:object="${postValue}">
+        <label for="postValue">Configured Value:</label>
+        <input type="number" id="postValue" name="postValue" th:field="*{postValue}" required>
+
+        <button type="submit">Post Value</button>
+    </form>
+</body>
+</html>

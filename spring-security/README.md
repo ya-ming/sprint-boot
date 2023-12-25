@@ -100,7 +100,8 @@
 * Certificate Verification
   * Using bouncycastle
 * Use chain of cert
-	* Generate a Root Certificate
+  * Should follow https://jamielinux.com/docs/openssl-certificate-authority/index.html
+  * Generate a Root Certificate
 ```shell
 # Generate a private key for the root CA
 openssl genpkey -algorithm RSA -out root-key.pem
@@ -166,6 +167,49 @@ openssl verify -CAfile root.pem intermediate.pem leaf.pem
 Get-Content leaf.pem, intermediate.pem, root.pem | Set-Content certificate-chain.pem
 ```
 
-
-openssl req -config .\openssl.cnf -key intermediateCA/private/www.example.com.key.pem -new -sha256 -out intermediateCA/csr/www.example.com.csr.pem -extensions 'v3_req'
+Update SAN
+```shell
+cd src\main\resources\myCA
+# generate CSR
+openssl req -config .\openssl.cnf -key intermediateCA/private/www.example.com.key.pem -new -sha256 -out intermediateCA/csr/www.example.com.csr.pem
+# inspect the CSR
+openssl req -noout -text -in intermediateCA\csr\www.example.com.csr.pem
+# sign the cert
 openssl ca -config .\openssl.cnf -extensions server_cert -days 375 -notext -md sha256 -in intermediateCA/csr/www.example.com.csr.pem -out intermediateCA/certs/www.example.com.cert.pem
+# inspect the cert
+openssl x509 -in intermediateCA/certs/www.example.com.cert.pem -text -noout
+# repackage the chain cert
+#   www.example.com.cert.pem
+#   ca-chain.cert.pem
+# into
+#   chain.cert.pem
+```
+
+Trust server cert when making request as a HTTP Client
+```shell
+# On Windows
+keytool -import -alias server-alias -keystore %JAVA_HOME%\lib\security\cacerts -file AbsolutePathTo\intermediateCA\certs\chain.cert.pem
+# Default password is `changeit`
+
+# delete existing cert
+keytool -delete -alias server-alias -keystore %JAVA_HOME%\lib\security\cacerts
+```
+* Repost a post to another endpoint
+  * Model attribute should match the name specified in Thymeleaf form
+    ```html
+    <form th:action="@{/repost}" method="post" th:object="${postValue}">
+    ```
+    ```java
+        @GetMapping("/repost")
+        public String repostPage(Model model) {
+            // Add the model attribute for the form
+            model.addAttribute("postValue", new PostValue());
+            return "repost";
+        }
+    ```
+  * Disable csrf and authentication for rest API
+    ```java
+        .csrf()
+        .ignoringAntMatchers("/post-rest")
+        .and()
+    ```

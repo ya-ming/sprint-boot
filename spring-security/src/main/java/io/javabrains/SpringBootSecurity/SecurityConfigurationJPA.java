@@ -56,10 +56,14 @@ public class SecurityConfigurationJPA {
 
         // @formatter:off
         http
+                .csrf()
+                    .ignoringAntMatchers("/post-rest")
+                    .and()
                 .authorizeHttpRequests((authorize) -> authorize
                                 .requestMatchers(new AntPathRequestMatcher("/admin")).hasRole("ADMIN")
                                 .requestMatchers(new AntPathRequestMatcher("/user")).hasAnyRole("ADMIN", "USER")
                                 .requestMatchers(new AntPathRequestMatcher("/home")).permitAll()
+                                .requestMatchers(new AntPathRequestMatcher("/post-rest")).permitAll()
                                 .anyRequest().authenticated()
                 )
                 // .formLogin(withDefaults());
